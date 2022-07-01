@@ -1,14 +1,18 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.card}>Fech Mobile</Text>
+      <Pressable>{(state) => <Box pressed={state.pressed} />}</Pressable>
       <StatusBar style="auto" />
     </View>
   );
 }
+
+export const Box = (props) => (
+  <View style={[styles.box, props.pressed && { backgroundColor: "blue" }]} />
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -32,5 +36,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 1,
     shadowOffset: { height: 1, width: 0.3 },
+  },
+  box: {
+    width: 100,
+    height: 100,
+    backgroundColor: "red",
   },
 });
