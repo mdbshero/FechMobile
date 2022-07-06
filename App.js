@@ -1,45 +1,52 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Pressable } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Pressable>{(state) => <Box pressed={state.pressed} />}</Pressable>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-export const Box = (props) => (
-  <View style={[styles.box, props.pressed && { backgroundColor: "blue" }]} />
+const OverviewScreen = () => (
+  <View style={styles.layout}>
+    <Text style={styles.title}>Overview</Text>
+  </View>
+);
+const ProfileNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Overview" component={OverviewScreen} />
+  </Stack.Navigator>
 );
 
+const FeedScreen = () => (
+  <View style={styles.layout}>
+    <Text style={styles.title}>Feed</Text>
+  </View>
+);
+
+export const AppNavigator = () => (
+  <Tab.Navigator>
+    <Tab.Screen name="Feed" component={FeedScreen} />
+    <Tab.Screen name="Profile" component={ProfileNavigator} />
+  </Tab.Navigator>
+);
+
+const App = () => (
+  <NavigationContainer>
+    <AppNavigator />
+  </NavigationContainer>
+);
+
+export default App;
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   layout: {
     flex: 1,
-    backgroundColor: "#e5e5e5",
     justifyContent: "center",
+    alignItems: "center",
   },
-  card: {
-    width: 100,
-    height: 100,
-    backgroundColor: "white",
-    margin: 16,
-    borderRadius: 2,
-    shadowColor: "black",
-    shadowOpacity: 0.3,
-    shadowRadius: 1,
-    shadowOffset: { height: 1, width: 0.3 },
-  },
-  box: {
-    width: 100,
-    height: 100,
-    backgroundColor: "red",
+  title: {
+    fontSize: 32,
+    marginBottom: 16,
   },
 });
