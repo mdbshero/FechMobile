@@ -1,39 +1,86 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Pressable } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import * as React from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+// --- Main screens ---
 const Tab = createBottomTabNavigator();
+
+const HomeScreen = () => {
+  return (
+    <View style={styles.layout}>
+      <Text style={styles.title}>Home Screen</Text>
+    </View>
+  );
+};
+const FeedScreen = () => {
+  return (
+    <View style={styles.layout}>
+      <Text style={styles.title}>Feed Screen</Text>
+    </View>
+  );
+};
+const CatalogScreen = () => {
+  return (
+    <View style={styles.layout}>
+      <Text style={styles.title}>Catalog Screen</Text>
+    </View>
+  );
+};
+const AccountScreen = () => {
+  return (
+    <View style={styles.layout}>
+      <Text style={styles.title}>Account Screen</Text>
+    </View>
+  );
+};
+
+const MainNavigator = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Feed" component={FeedScreen} />
+      <Tab.Screen name="Catalog" component={CatalogScreen} />
+      <Tab.Screen name="Account" component={AccountScreen} />
+    </Tab.Navigator>
+  );
+};
+
+// --- Onboarding screens ---
 const Stack = createStackNavigator();
 
-const OverviewScreen = () => (
-  <View style={styles.layout}>
-    <Text style={styles.title}>Overview</Text>
-  </View>
-);
-const ProfileNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Overview" component={OverviewScreen} />
-  </Stack.Navigator>
-);
+const SignInScreen = (props) => {
+  return (
+    <View style={styles.layout}>
+      <Text style={styles.title}>Sign in screen</Text>
+      <Button
+        title="Sign up"
+        onPress={() => props.navigation.navigate("SignUp")}
+      />
+    </View>
+  );
+};
 
-const FeedScreen = () => (
-  <View style={styles.layout}>
-    <Text style={styles.title}>Feed</Text>
-  </View>
-);
+const SignUpScreen = () => {
+  const navigation = useNavigation();
+  return (
+    <View style={styles.layout}>
+      <Text style={styles.title}>Sign up screen</Text>
+      <Button title="Continue" onPress={() => navigation.navigate("Main")} />
+    </View>
+  );
+};
 
-export const AppNavigator = () => (
-  <Tab.Navigator>
-    <Tab.Screen name="Feed" component={FeedScreen} />
-    <Tab.Screen name="Profile" component={ProfileNavigator} />
-  </Tab.Navigator>
-);
+// --- App ---
 
 const App = () => (
   <NavigationContainer>
-    <AppNavigator />
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="SignIn" component={SignInScreen} />
+      <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="Main" component={MainNavigator} />
+    </Stack.Navigator>
   </NavigationContainer>
 );
 
@@ -43,10 +90,12 @@ const styles = StyleSheet.create({
   layout: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    padding: 8,
   },
   title: {
-    fontSize: 32,
-    marginBottom: 16,
+    margin: 24,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
