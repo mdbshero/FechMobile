@@ -4,39 +4,20 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from './Screens/HomeScreen/HomeScreen'
+import FeedScreen from "./Screens/FeedScreen/FeedScreen";
+import AccountScreen from "./Screens/AccountScreen/AccountScreen";
+import CatalogScreen from "./Screens/CatalogScreen/CatalogScreen";
 
 // --- Main screens ---
 const Tab = createBottomTabNavigator();
-
-const FeedScreen = () => {
-  return (
-    <View style={styles.layout}>
-      <Text style={styles.title}>Feed Screen</Text>
-    </View>
-  );
-};
-const CatalogScreen = () => {
-  return (
-    <View style={styles.layout}>
-      <Text style={styles.title}>Catalog Screen</Text>
-    </View>
-  );
-};
-const AccountScreen = () => {
-  return (
-    <View style={styles.layout}>
-      <Text style={styles.title}>Account Screen</Text>
-    </View>
-  );
-};
 
 const MainNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home">{props => <HomeScreen {...props} styles={styles}/>}</Tab.Screen>
-      <Tab.Screen name="Feed" component={FeedScreen} />
-      <Tab.Screen name="Catalog" component={CatalogScreen} />
-      <Tab.Screen name="Account" component={AccountScreen} />
+      <Tab.Screen name="Feed">{props => <FeedScreen {...props} styles={styles}/>}</Tab.Screen>
+      <Tab.Screen name="Catalog">{props => <CatalogScreen {...props} styles={styles}/>}</Tab.Screen>
+      <Tab.Screen name="Account">{props => <AccountScreen {...props} styles={styles}/>}</Tab.Screen>
     </Tab.Navigator>
   );
 };
