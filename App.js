@@ -3,17 +3,11 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeScreen from './Screens/HomeScreen/HomeScreen'
 
 // --- Main screens ---
 const Tab = createBottomTabNavigator();
 
-const HomeScreen = () => {
-  return (
-    <View style={styles.layout}>
-      <Text style={styles.title}>Home Screen</Text>
-    </View>
-  );
-};
 const FeedScreen = () => {
   return (
     <View style={styles.layout}>
@@ -39,7 +33,7 @@ const AccountScreen = () => {
 const MainNavigator = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home">{props => <HomeScreen {...props} styles={styles}/>}</Tab.Screen>
       <Tab.Screen name="Feed" component={FeedScreen} />
       <Tab.Screen name="Catalog" component={CatalogScreen} />
       <Tab.Screen name="Account" component={AccountScreen} />
