@@ -7,6 +7,7 @@ import HomeScreen from './Screens/HomeScreen/HomeScreen'
 import FeedScreen from "./Screens/FeedScreen/FeedScreen";
 import AccountScreen from "./Screens/AccountScreen/AccountScreen";
 import CatalogScreen from "./Screens/CatalogScreen/CatalogScreen";
+import SignInScreen from "./Screens/SignInScreen/SignInScreen";
 
 // --- Main screens ---
 const Tab = createBottomTabNavigator();
@@ -25,17 +26,6 @@ const MainNavigator = () => {
 // --- Onboarding screens ---
 const Stack = createStackNavigator();
 
-const SignInScreen = (props) => {
-  return (
-    <View style={styles.layout}>
-      <Text style={styles.title}>Sign in screen</Text>
-      <Button
-        title="Sign up"
-        onPress={() => props.navigation.navigate("SignUp")}
-      />
-    </View>
-  );
-};
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
@@ -51,8 +41,8 @@ const SignUpScreen = () => {
 
 const App = () => (
   <NavigationContainer>
-    <Stack.Navigator headerMode="none">
-      <Stack.Screen name="SignIn" component={SignInScreen} />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="SignIn">{props => <SignInScreen {...props} styles={styles}/>}</Stack.Screen>
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="Main" component={MainNavigator} />
     </Stack.Navigator>
